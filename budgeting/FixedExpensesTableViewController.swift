@@ -10,18 +10,31 @@ import UIKit
 
 class FixedExpensesTableViewController: UITableViewController {
 
-//    let sections = ["","Housing","Transportation","Other Expenses"]
-//    let expenses = [["",""],["Rent/Mortgage","Gas","Water/Power","Cable/Internet","Garbage","Property Tax","Homeowners/Renters Insurance"],["Car Payment","Car Insurance","Roadside Insurance"],["Health Insurance","Life Insurance","Disability Insurance","Student Loans","Cell Phone","Other"]]
-//    let headerCell = "Header Cell"
-//    let titleCell = "Title Cell"
-//    let expenseCell = "Expense Cell"
-    
-    let headerNavigationBarTableViewCell = HeaderNavigationBarTableViewCell()
-    
+    let expenses:[String:[String]] = ["Housing":["Rent/Mortgage","Gas","Water/Power","Cable/Internet","Garbage","Property Tax","Homeowners/Renters Insurance"],"Transportation":["Car Payment","Car Insurance","Roadside Insurance"],"Other Expenses":["Health Insurance","Life Insurance","Disability Insurance","Student Loans","Cell Phone","Other"]]
+    var sections = [String]()
+    let expenseCell = "Expense Cell"
+    var topNavigationBreadcrumbView = TopNavigationBreadcrumbView()
+    var fixedExpensesTitleView = TitleView()
+    var bottomNavigationView = BottomNavigationView()
+    var budgetLineItemView = BudgetLineItemView()
+    var headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 300))
+    var footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
+    var tableViewRow = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: expenseCell)
+        
+        for section in expenses.keys {
+            self.sections.append(section)
+        }
+        
+        headerView.addSubview(makeTableViewHeaderView())
+        footerView.addSubview(makeTableViewFooterView())
+        self.tableView.tableHeaderView = headerView
+        self.tableView.tableFooterView = footerView
+        self.tableView.rowHeight = 50
         
         
         
@@ -32,44 +45,87 @@ class FixedExpensesTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func makeTableViewHeaderView() -> UIView {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 220))
+        topNavigationBreadcrumbView.translatesAutoresizingMaskIntoConstraints = false
+        headerView.addSubview(self.topNavigationBreadcrumbView)
+        fixedExpensesTitleView.translatesAutoresizingMaskIntoConstraints = false
+        self.fixedExpensesTitleView.title = "Fixed Expenses"
+        self.fixedExpensesTitleView.subtitle = "Fixed Expenses go here..."
+        headerView.addSubview(self.fixedExpensesTitleView)
+        
+        let margins = headerView.layoutMarginsGuide
+        let distanceBetweenLineItems:CGFloat = 30
+        topNavigationBreadcrumbView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        topNavigationBreadcrumbView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 20).isActive = true
+        topNavigationBreadcrumbView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        topNavigationBreadcrumbView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        fixedExpensesTitleView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        fixedExpensesTitleView.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
+        fixedExpensesTitleView.topAnchor.constraint(equalTo: topNavigationBreadcrumbView.bottomAnchor, constant: distanceBetweenLineItems).isActive = true
+        return headerView
     }
+    
+    func makeTableViewFooterView() -> UIView {
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
+        bottomNavigationView.translatesAutoresizingMaskIntoConstraints = false
+        bottomNavigationView.backNavigationText = "Income"
+        bottomNavigationView.forwardNavigationText = "Variable Expenses"
+        footerView.addSubview(self.bottomNavigationView)
+        
+        let margins = footerView.layoutMarginsGuide
+        bottomNavigationView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        bottomNavigationView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        bottomNavigationView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 10).isActive = true
+        bottomNavigationView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: 10).isActive = true
+        return footerView
+    }
+    
+    func makeTableViewRowView(indexPath:IndexPath) -> UIView {
+        let rowView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
+        budgetLineItemView.translatesAutoresizingMaskIntoConstraints = false
+        let sectionsArray = expenses[sections[indexPath.section]]
+        let expenseItem = sectionsArray?[indexPath.row]
+        budgetLineItemView.label.text = expenseItem
+        rowView.addSubview(budgetLineItemView)
+        
+        let margins = rowView.layoutMarginsGuide
+        budgetLineItemView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        budgetLineItemView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        budgetLineItemView.centerYAnchor.constraint(equalTo: margins.centerYAnchor).isActive = true
+        return rowView
+    }
+    
 
     // MARK: - Table view data source
 
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-/*
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section]
+    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return expenses[section].count
+        return expenses[sections[section]]!.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: headerCell, for: indexPath) as! HeaderNavigationBarTableViewCell
-                return cell
-            }
-        }
-        else if indexPath.section == 0 {
-            if indexPath.row == 1 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: titleCell, for: indexPath)
-                cell.backgroundColor = .red
-                return cell
-            }
-        }
-        else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: expenseCell, for: indexPath)
-            cell.backgroundColor = .blue
-            return cell
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: expenseCell, for: indexPath)
+        tableViewRow = makeTableViewRowView(indexPath: indexPath)
+        tableViewRow.translatesAutoresizingMaskIntoConstraints = false
+        cell.contentView.addSubview(tableViewRow)
+        cell.selectionStyle = .none
+        
+        let margins = cell.contentView.layoutMarginsGuide
+        tableViewRow.centerYAnchor.constraint(equalTo: margins.centerYAnchor).isActive = true
+        tableViewRow.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        tableViewRow.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        tableViewRow.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return cell
-
     }
- */
+
 
     /*
     // Override to support conditional editing of the table view.
@@ -106,14 +162,5 @@ class FixedExpensesTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

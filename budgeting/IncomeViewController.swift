@@ -32,6 +32,8 @@ class IncomeViewController: UIViewController {
         
         topNavigationBreadcrumbView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(topNavigationBreadcrumbView)
+        incomeTitleView.title = "Income"
+        incomeTitleView.subtitle = "The money you make goes here"
         incomeTitleView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(incomeTitleView)
         

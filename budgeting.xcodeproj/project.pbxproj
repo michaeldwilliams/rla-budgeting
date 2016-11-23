@@ -20,7 +20,6 @@
 		21A234DE1DE5112E00B1A177 /* BudgetLineItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A234DD1DE5112E00B1A177 /* BudgetLineItemView.swift */; };
 		21A234E11DE51FC900B1A177 /* BottomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A234E01DE51FC900B1A177 /* BottomNavigationView.swift */; };
 		21DF8CD81DDD1BB700310A9F /* FixedExpensesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF8CD71DDD1BB700310A9F /* FixedExpensesTableViewController.swift */; };
-		21DF8CDA1DDD2C7A00310A9F /* HeaderNavigationBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF8CD91DDD2C7A00310A9F /* HeaderNavigationBarTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +38,6 @@
 		21A234DD1DE5112E00B1A177 /* BudgetLineItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetLineItemView.swift; sourceTree = "<group>"; };
 		21A234E01DE51FC900B1A177 /* BottomNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomNavigationView.swift; sourceTree = "<group>"; };
 		21DF8CD71DDD1BB700310A9F /* FixedExpensesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedExpensesTableViewController.swift; sourceTree = "<group>"; };
-		21DF8CD91DDD2C7A00310A9F /* HeaderNavigationBarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderNavigationBarTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +70,6 @@
 		211C6BA81DC80B930060A6F6 /* budgeting */ = {
 			isa = PBXGroup;
 			children = (
-				21DF8CD91DDD2C7A00310A9F /* HeaderNavigationBarTableViewCell.swift */,
 				21A234DF1DE51F0E00B1A177 /* Views */,
 				211C6BA91DC80B930060A6F6 /* AppDelegate.swift */,
 				211C6BAB1DC80B930060A6F6 /* GetStartedViewController.swift */,
@@ -173,7 +170,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2127BB291DC959C700D4F04D /* IncomeViewController.swift in Sources */,
-				21DF8CDA1DDD2C7A00310A9F /* HeaderNavigationBarTableViewCell.swift in Sources */,
 				2113B33B1DDA921B0036735B /* GetStartedPageViewController.swift in Sources */,
 				21A234DA1DE4F1ED00B1A177 /* TopNavigationBreadcrumbView.swift in Sources */,
 				211C6BAC1DC80B930060A6F6 /* GetStartedViewController.swift in Sources */,

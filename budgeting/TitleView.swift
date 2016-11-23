@@ -10,23 +10,25 @@ import UIKit
 
 class TitleView: UIView {
     
-    var incomeTitleLabel = UILabel()
-    var incomeSubtitleLabel = UILabel()
+    var titleLabel = UILabel()
+    var subtitleLabel = UILabel()
+    var title = "Title"
+    var subtitle = "Subtitle"
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        incomeTitleLabel = makeHeader(withText: "Income")
-        self.addSubview(incomeTitleLabel)
-        incomeSubtitleLabel = makeSubtitle(withText: "The money you make.")
-        self.addSubview(incomeSubtitleLabel)
+        titleLabel = makeHeader(withText: title)
+        self.addSubview(titleLabel)
+        subtitleLabel = makeSubtitle(withText: subtitle)
+        self.addSubview(subtitleLabel)
         
         let margins = self.layoutMarginsGuide
-        incomeTitleLabel.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
-        incomeTitleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        incomeSubtitleLabel.centerXAnchor.constraint(equalTo: incomeTitleLabel.centerXAnchor).isActive = true
-        incomeSubtitleLabel.topAnchor.constraint(equalTo: incomeTitleLabel.bottomAnchor, constant: 15).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        subtitleLabel.centerXAnchor.constraint(equalTo: titleLabel.centerXAnchor).isActive = true
+        subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15).isActive = true
 
         
     }
