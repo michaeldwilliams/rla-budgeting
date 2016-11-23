@@ -10,15 +10,21 @@ import UIKit
 
 class FixedExpensesTableViewController: UITableViewController {
 
-    let sections = ["","Housing","Transportation","Other Expenses"]
-    let expenses = [["",""],["Rent/Mortgage","Gas","Water/Power","Cable/Internet","Garbage","Property Tax","Homeowners/Renters Insurance"],["Car Payment","Car Insurance","Roadside Insurance"],["Health Insurance","Life Insurance","Disability Insurance","Student Loans","Cell Phone","Other"]]
-    let headerCell = "Header Cell"
-    let titleCell = "Title Cell"
-    let expenseCell = "Expense Cell"
+//    let sections = ["","Housing","Transportation","Other Expenses"]
+//    let expenses = [["",""],["Rent/Mortgage","Gas","Water/Power","Cable/Internet","Garbage","Property Tax","Homeowners/Renters Insurance"],["Car Payment","Car Insurance","Roadside Insurance"],["Health Insurance","Life Insurance","Disability Insurance","Student Loans","Cell Phone","Other"]]
+//    let headerCell = "Header Cell"
+//    let titleCell = "Title Cell"
+//    let expenseCell = "Expense Cell"
+    
+    let headerNavigationBarTableViewCell = HeaderNavigationBarTableViewCell()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -33,9 +39,9 @@ class FixedExpensesTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
 /*
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return expenses[section].count
