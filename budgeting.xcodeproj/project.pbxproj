@@ -19,6 +19,7 @@
 		21A234DC1DE50DE200B1A177 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A234DB1DE50DE200B1A177 /* TitleView.swift */; };
 		21A234DE1DE5112E00B1A177 /* BudgetLineItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A234DD1DE5112E00B1A177 /* BudgetLineItemView.swift */; };
 		21A234E11DE51FC900B1A177 /* BottomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A234E01DE51FC900B1A177 /* BottomNavigationView.swift */; };
+		21A234E31DE7FC8000B1A177 /* LineItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A234E21DE7FC8000B1A177 /* LineItemTableViewCell.swift */; };
 		21DF8CD81DDD1BB700310A9F /* FixedExpensesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF8CD71DDD1BB700310A9F /* FixedExpensesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		21A234DB1DE50DE200B1A177 /* TitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		21A234DD1DE5112E00B1A177 /* BudgetLineItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetLineItemView.swift; sourceTree = "<group>"; };
 		21A234E01DE51FC900B1A177 /* BottomNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomNavigationView.swift; sourceTree = "<group>"; };
+		21A234E21DE7FC8000B1A177 /* LineItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineItemTableViewCell.swift; sourceTree = "<group>"; };
 		21DF8CD71DDD1BB700310A9F /* FixedExpensesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedExpensesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +77,7 @@
 				211C6BAB1DC80B930060A6F6 /* GetStartedViewController.swift */,
 				2127BB281DC959C700D4F04D /* IncomeViewController.swift */,
 				21DF8CD71DDD1BB700310A9F /* FixedExpensesTableViewController.swift */,
+				21A234E21DE7FC8000B1A177 /* LineItemTableViewCell.swift */,
 				2127BB2A1DCAAB0800D4F04D /* Extensions.swift */,
 				2113B33A1DDA921B0036735B /* GetStartedPageViewController.swift */,
 				211C6BB01DC80B930060A6F6 /* Assets.xcassets */,
@@ -171,6 +174,7 @@
 			files = (
 				2127BB291DC959C700D4F04D /* IncomeViewController.swift in Sources */,
 				2113B33B1DDA921B0036735B /* GetStartedPageViewController.swift in Sources */,
+				21A234E31DE7FC8000B1A177 /* LineItemTableViewCell.swift in Sources */,
 				21A234DA1DE4F1ED00B1A177 /* TopNavigationBreadcrumbView.swift in Sources */,
 				211C6BAC1DC80B930060A6F6 /* GetStartedViewController.swift in Sources */,
 				21A234DC1DE50DE200B1A177 /* TitleView.swift in Sources */,

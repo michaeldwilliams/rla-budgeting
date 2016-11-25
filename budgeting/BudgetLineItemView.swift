@@ -17,13 +17,18 @@ class BudgetLineItemView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         label = makeBudgetLineLabel(withText: "Line Item")
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.sizeToFit()
+        label.adjustsFontSizeToFitWidth = true
         self.addSubview(label)
+        lineItemTextField.translatesAutoresizingMaskIntoConstraints = false
         lineItemTextField = makeNumberInputTextField()
         self.addSubview(lineItemTextField)
 
         
         let margins = layoutMarginsGuide
         label.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        label.trailingAnchor.constraint(equalTo: lineItemTextField.leadingAnchor, constant: -5).isActive = true
         label.centerYAnchor.constraint(equalTo: margins.centerYAnchor).isActive = true
         lineItemTextField.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         lineItemTextField.centerYAnchor.constraint(equalTo: label.centerYAnchor).isActive = true
@@ -42,7 +47,6 @@ class BudgetLineItemView: UIView {
         bodyText.font = UIFont.preferredFont(forTextStyle: .body)
         bodyText.font = UIFont.systemFont(ofSize: 16)
         bodyText.numberOfLines = 1
-        bodyText.translatesAutoresizingMaskIntoConstraints = false
         return bodyText
     }
 

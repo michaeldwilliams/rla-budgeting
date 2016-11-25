@@ -16,15 +16,13 @@ class FixedExpensesTableViewController: UITableViewController {
     var topNavigationBreadcrumbView = TopNavigationBreadcrumbView()
     var fixedExpensesTitleView = TitleView()
     var bottomNavigationView = BottomNavigationView()
-    var budgetLineItemView = BudgetLineItemView()
     var headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 300))
     var footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
-    var tableViewRow = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: expenseCell)
+        tableView.register(LineItemTableViewCell.self, forCellReuseIdentifier: expenseCell)
         
         for section in expenses.keys {
             self.sections.append(section)
@@ -35,7 +33,7 @@ class FixedExpensesTableViewController: UITableViewController {
         self.tableView.tableHeaderView = headerView
         self.tableView.tableFooterView = footerView
         self.tableView.rowHeight = 50
-        
+        tableView.reloadData()
         
         
         // Uncomment the following line to preserve selection between presentations
@@ -81,20 +79,7 @@ class FixedExpensesTableViewController: UITableViewController {
         return footerView
     }
     
-    func makeTableViewRowView(indexPath:IndexPath) -> UIView {
-        let rowView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
-        budgetLineItemView.translatesAutoresizingMaskIntoConstraints = false
-        let sectionsArray = expenses[sections[indexPath.section]]
-        let expenseItem = sectionsArray?[indexPath.row]
-        budgetLineItemView.label.text = expenseItem
-        rowView.addSubview(budgetLineItemView)
-        
-        let margins = rowView.layoutMarginsGuide
-        budgetLineItemView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        budgetLineItemView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        budgetLineItemView.centerYAnchor.constraint(equalTo: margins.centerYAnchor).isActive = true
-        return rowView
-    }
+
     
 
     // MARK: - Table view data source
@@ -112,17 +97,11 @@ class FixedExpensesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: expenseCell, for: indexPath)
-        tableViewRow = makeTableViewRowView(indexPath: indexPath)
-        tableViewRow.translatesAutoresizingMaskIntoConstraints = false
-        cell.contentView.addSubview(tableViewRow)
-        cell.selectionStyle = .none
+        let cell = tableView.dequeueReusableCell(withIdentifier: expenseCell, for: indexPath) as! LineItemTableViewCell
+        let sectionsArray = expenses[sections[indexPath.section]]
+        let expenseItem = sectionsArray?[indexPath.row]
+        cell.budgetLineItemView.label.text = expenseItem!
         
-        let margins = cell.contentView.layoutMarginsGuide
-        tableViewRow.centerYAnchor.constraint(equalTo: margins.centerYAnchor).isActive = true
-        tableViewRow.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        tableViewRow.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        tableViewRow.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return cell
     }
 
