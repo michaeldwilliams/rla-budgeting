@@ -11,7 +11,7 @@ import UIKit
 let nextButtonPressedNotificationKey = "Next Button Pressed"
 let backButtonPressedNotificationKey = "Back Button Pressed"
 
-class IncomeViewController: UIViewController {
+class IncomeViewController: UIViewController, UITextFieldDelegate {
     
     let topNavigationBreadcrumbView = TopNavigationBreadcrumbView()
     let incomeTitleView = TitleView()
@@ -23,6 +23,7 @@ class IncomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+
     }
 
 
@@ -104,3 +105,5 @@ class IncomeViewController: UIViewController {
     }
     
 }
+
+

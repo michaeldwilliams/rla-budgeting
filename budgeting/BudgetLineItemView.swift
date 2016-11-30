@@ -24,7 +24,6 @@ class BudgetLineItemView: UIView {
         lineItemTextField.translatesAutoresizingMaskIntoConstraints = false
         lineItemTextField = makeNumberInputTextField()
         self.addSubview(lineItemTextField)
-
         
         let margins = layoutMarginsGuide
         label.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true

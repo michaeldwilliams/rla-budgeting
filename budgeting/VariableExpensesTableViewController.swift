@@ -1,26 +1,23 @@
 //
-//  FixedExpensesTableViewController.swift
+//  VariableExpensesTableViewController.swift
 //  budgeting
 //
-//  Created by Michael Williams on 11/16/16.
+//  Created by Michael Williams on 11/25/16.
 //  Copyright © 2016 Reality Church of Los Angeles. All rights reserved.
 //
 
 import UIKit
 
-class FixedExpensesTableViewController: UITableViewController, UITextFieldDelegate {
+class VariableExpensesTableViewController: UITableViewController {
 
-    let expenses:[String:[String]] = ["Housing":["Rent/Mortgage","Gas","Water/Power","Cable/Internet","Garbage","Property Tax","Homeowners/Renters Insurance"],"Transportation":["Car Payment","Car Insurance","Roadside Insurance"],"Other Expenses":["Health Insurance","Life Insurance","Disability Insurance","Student Loans","Cell Phone","Other"]]
-    var fixedExpenseDollarAmounts = [String]()
+    let expenses:[String:[String]] = ["":["Gasoline","Food and Beverage","Starbucks (Coffee/Tea)", "Clothing","Home Furnishings","Personal Care /Cash","Medical / Dental / Rx", "Education / Self Improvement", "Debt /Installment Payments", "Entertainment","Vacations / Holidays", "Charitable Contributions", "Savings","Other"]]
     var sections = [String]()
-    var fixedExpenseDictionary:[[String:Double]] = [[:]]
     let expenseCell = "Expense Cell"
     var topNavigationBreadcrumbView = TopNavigationBreadcrumbView()
-    var fixedExpensesTitleView = TitleView()
+    var variableExpensesTitleView = TitleView()
     var bottomNavigationView = BottomNavigationView()
     var headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 300))
     var footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,16 +33,24 @@ class FixedExpensesTableViewController: UITableViewController, UITextFieldDelega
         self.tableView.tableHeaderView = headerView
         self.tableView.tableFooterView = footerView
         self.tableView.rowHeight = 50
+        tableView.reloadData()
+        
+        
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+        
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
+    
     func makeTableViewHeaderView() -> UIView {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 220))
         topNavigationBreadcrumbView.translatesAutoresizingMaskIntoConstraints = false
         headerView.addSubview(self.topNavigationBreadcrumbView)
-        fixedExpensesTitleView.translatesAutoresizingMaskIntoConstraints = false
-        self.fixedExpensesTitleView.title = "Fixed Expenses"
-        self.fixedExpensesTitleView.subtitle = "Fixed Expenses go here..."
-        headerView.addSubview(self.fixedExpensesTitleView)
+        variableExpensesTitleView.translatesAutoresizingMaskIntoConstraints = false
+        self.variableExpensesTitleView.title = "Fixed Expenses"
+        self.variableExpensesTitleView.subtitle = "Fixed Expenses go here..."
+        headerView.addSubview(self.variableExpensesTitleView)
         
         let margins = headerView.layoutMarginsGuide
         let distanceBetweenLineItems:CGFloat = 30
@@ -53,9 +58,9 @@ class FixedExpensesTableViewController: UITableViewController, UITextFieldDelega
         topNavigationBreadcrumbView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 20).isActive = true
         topNavigationBreadcrumbView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         topNavigationBreadcrumbView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        fixedExpensesTitleView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        fixedExpensesTitleView.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
-        fixedExpensesTitleView.topAnchor.constraint(equalTo: topNavigationBreadcrumbView.bottomAnchor, constant: distanceBetweenLineItems).isActive = true
+        variableExpensesTitleView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        variableExpensesTitleView.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
+        variableExpensesTitleView.topAnchor.constraint(equalTo: topNavigationBreadcrumbView.bottomAnchor, constant: distanceBetweenLineItems).isActive = true
         return headerView
     }
     
@@ -74,13 +79,11 @@ class FixedExpensesTableViewController: UITableViewController, UITextFieldDelega
         return footerView
     }
     
-    func appendValuesToArray(withLabel label:String, amount:Double) {
-        fixedExpenseDictionary.append([label:amount])
-    }
     
-
+    
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
@@ -88,54 +91,54 @@ class FixedExpensesTableViewController: UITableViewController, UITextFieldDelega
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sections[section]
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return expenses[sections[section]]!.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: expenseCell, for: indexPath) as! LineItemTableViewCell
         let sectionsArray = expenses[sections[indexPath.section]]
         let expenseItem = sectionsArray?[indexPath.row]
         cell.budgetLineItemView.label.text = expenseItem!
-        cell.budgetLineItemView.lineItemTextField.delegate = self
-//        cell.budgetLineItemView.lineItemTextField.text = ""
-//        if (cell.budgetLineItemView.lineItemTextField.text?.isEmpty)! {
-//            fixedExpenseDollarAmounts.append("")
-//        } else {
-//            fixedExpenseDollarAmounts.append(cell.budgetLineItemView.lineItemTextField.text!)
-//        }
-//        for x in fixedExpenseDollarAmounts {
-//            print(x)
-//        }
+        
         return cell
     }
     
-    //MARK: UITextField Delegate
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.layer.borderColor = UIColor.blue.cgColor
-        textField.keyboardType = .decimalPad
-        textField.spellCheckingType = .no
-        textField.becomeFirstResponder()
-    }
+    /*
+     // Override to support conditional editing of the table view.
+     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
     
+    /*
+     // Override to support editing the table view.
+     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+     if editingStyle == .delete {
+     // Delete the row from the data source
+     tableView.deleteRows(at: [indexPath], with: .fade)
+     } else if editingStyle == .insert {
+     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     }
+     }
+     */
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        let visibleCells = tableView.visibleCells as! [LineItemTableViewCell]
-        guard let indexPathForVisibleRows = tableView.indexPathsForVisibleRows else {return}
-        
-        for index in 0..<visibleCells.count {
-            let cell = visibleCells[index]
-            let indexPath = indexPathForVisibleRows[index]
-            let sectionsArray = expenses[sections[indexPath.section]]
-            let expenseItem = sectionsArray?[indexPath.row]
-            let label = cell.budgetLineItemView.label.text
-            if label == expenseItem! {
-                appendValuesToArray(withLabel: label!, amount: Double(textField.text!)!)
-                print("\(label!)"+":"+"\(textField.text!)")
-            }
-        }
-    }
+    /*
+     // Override to support rearranging the table view.
+     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+     
+     }
+     */
+    
+    /*
+     // Override to support conditional rearranging of the table view.
+     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
 
 }

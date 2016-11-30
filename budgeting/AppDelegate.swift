@@ -16,7 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let editBudgetNavigation = UINavigationController()
+        let editIncomeTableViewController = EditIncomeTableViewController()
+        let editExpensesTableViewController = EditExpensesTableViewController()
+        editBudgetNavigation.viewControllers = [editIncomeTableViewController,editExpensesTableViewController]
         
         window = UIWindow.init(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white

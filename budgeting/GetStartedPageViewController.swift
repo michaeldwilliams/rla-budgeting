@@ -12,6 +12,8 @@ class GetStartedPageViewController: UIPageViewController, UIPageViewControllerDa
     
     let incomeViewController = IncomeViewController()
     let fixedExpensesTableViewController = FixedExpensesTableViewController()
+    let variableExpensesTableViewController = VariableExpensesTableViewController()
+    let statementTableViewController = StatementTableViewController()
     var pageViewControllersArray:[UIViewController] = []
     var currentIndex = 0
 
@@ -20,6 +22,8 @@ class GetStartedPageViewController: UIPageViewController, UIPageViewControllerDa
         super.viewDidLoad()
         self.pageViewControllersArray.append(incomeViewController)
         self.pageViewControllersArray.append(fixedExpensesTableViewController)
+        self.pageViewControllersArray.append(variableExpensesTableViewController)
+        self.pageViewControllersArray.append(statementTableViewController)
         self.setViewControllers([pageViewControllersArray[0]], direction: .forward, animated: false, completion: nil)
         dataSource = self
         NotificationCenter.default.addObserver(self, selector: #selector(GetStartedPageViewController.navigateToNextViewController), name: NSNotification.Name(rawValue: nextButtonPressedNotificationKey), object: nil)
@@ -28,18 +32,14 @@ class GetStartedPageViewController: UIPageViewController, UIPageViewControllerDa
 
 
     func navigateToNextViewController() {
-        print(nextButtonPressedNotificationKey)
-        print(currentIndex)
         if currentIndex < pageViewControllersArray.count - 1 {
-            self.setViewControllers([self.pageViewControllersArray[currentIndex+1]], direction: .forward, animated: true, completion: nil)
+            self.setViewControllers([self.pageViewControllersArray[currentIndex + 1]], direction: .forward, animated: true, completion: nil)
         }
     }
     
     func navigateToPreviousViewController() {
-        print(backButtonPressedNotificationKey)
-        print(currentIndex)
         if currentIndex > 0 {
-            self.setViewControllers([self.pageViewControllersArray[currentIndex-1]], direction: .reverse, animated: true, completion: nil)
+            self.setViewControllers([self.pageViewControllersArray[currentIndex - 1]], direction: .reverse, animated: true, completion: nil)
         }
         else {
             dismiss(animated: true, completion: nil)
