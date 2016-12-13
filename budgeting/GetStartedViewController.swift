@@ -10,17 +10,7 @@ import UIKit
 
 class GetStartedViewController: UIViewController {
     
-    lazy var getStartedButton:UIButton = {
-        var getStartedButton = UIButton(type: UIButtonType.roundedRect)
-        getStartedButton.setTitle("Get started", for: .normal)
-        getStartedButton.setTitleColor(.white, for: .normal)
-        getStartedButton.backgroundColor = .blue
-        getStartedButton.translatesAutoresizingMaskIntoConstraints = false
-        getStartedButton.layer.cornerRadius = 10
-        getStartedButton.addTarget(self, action: #selector(self.presentIncomeView), for: .touchUpInside)
-        self.view.addSubview(getStartedButton)
-        return getStartedButton
-    }()
+    let getStartedView = GetStartedView(frame: UIScreen.main.bounds)
     
     func presentIncomeView() {
         let getStartedPageViewController = GetStartedPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
@@ -29,22 +19,11 @@ class GetStartedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let headerText = makeHeader(withText: "Get Control.")
-        view.addSubview(headerText)
-        let subtitleText = makeSubtitle(withText: "A budget is the first step towards gaining control over your finances.")
-        view.addSubview(subtitleText)
         
-        let margins = view.layoutMarginsGuide
-        headerText.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        headerText.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        headerText.topAnchor.constraint(equalTo: margins.topAnchor, constant: 200).isActive = true
-        subtitleText.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        subtitleText.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        subtitleText.topAnchor.constraint(equalTo: headerText.bottomAnchor, constant: 25).isActive = true
-        getStartedButton.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        getStartedButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        getStartedButton.topAnchor.constraint(equalTo: subtitleText.bottomAnchor, constant: 100).isActive = true
-        getStartedButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        view.addSubview(getStartedView)
+        getStartedView.getStartedButton.addTarget(self, action: #selector(self.presentIncomeView), for: .touchUpInside)
+        
+
     }
 
     override func didReceiveMemoryWarning() {

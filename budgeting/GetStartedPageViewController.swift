@@ -15,11 +15,13 @@ class GetStartedPageViewController: UIPageViewController, UIPageViewControllerDa
     let variableExpensesTableViewController = VariableExpensesTableViewController()
     let statementTableViewController = StatementTableViewController()
     var pageViewControllersArray:[UIViewController] = []
+    let breadcrumbViewNav = TopNavigationBreadcrumbView(frame: CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 80))
     var currentIndex = 0
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(breadcrumbViewNav)
         self.pageViewControllersArray.append(incomeViewController)
         self.pageViewControllersArray.append(fixedExpensesTableViewController)
         self.pageViewControllersArray.append(variableExpensesTableViewController)

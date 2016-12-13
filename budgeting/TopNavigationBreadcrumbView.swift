@@ -20,6 +20,7 @@ class TopNavigationBreadcrumbView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        backgroundColor = .white
         numberOneLabel = makeNumberLabel(withText: "1", backgroundColor: .blue)
         self.addSubview(numberOneLabel)
         numberTwoLabel = makeNumberLabel(withText: "2", backgroundColor: .blue)

@@ -15,11 +15,9 @@ class FixedExpensesTableViewController: UITableViewController, UITextFieldDelega
     var sections = [String]()
     var fixedExpenseDictionary:[[String:Double]] = [[:]]
     let expenseCell = "Expense Cell"
-    var topNavigationBreadcrumbView = TopNavigationBreadcrumbView()
-    var fixedExpensesTitleView = TitleView()
-    var bottomNavigationView = BottomNavigationView()
-    var headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 300))
-    var footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
+    let fixedExpenseView = ExpensesHeaderFooterView(frame: UIScreen.main.bounds)
+    
+    
     
     
     override func viewDidLoad() {
@@ -31,49 +29,15 @@ class FixedExpensesTableViewController: UITableViewController, UITextFieldDelega
             self.sections.append(section)
         }
         
-        headerView.addSubview(makeTableViewHeaderView())
-        footerView.addSubview(makeTableViewFooterView())
-        self.tableView.tableHeaderView = headerView
-        self.tableView.tableFooterView = footerView
+        self.tableView.tableHeaderView = fixedExpenseView.headerView
+        self.tableView.tableFooterView = fixedExpenseView.footerView
         self.tableView.rowHeight = 50
+        let inset = UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0)
+        self.tableView.contentInset = inset
+        self.tableView.scrollIndicatorInsets = inset
     }
 
-    func makeTableViewHeaderView() -> UIView {
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 220))
-        topNavigationBreadcrumbView.translatesAutoresizingMaskIntoConstraints = false
-        headerView.addSubview(self.topNavigationBreadcrumbView)
-        fixedExpensesTitleView.translatesAutoresizingMaskIntoConstraints = false
-        self.fixedExpensesTitleView.title = "Fixed Expenses"
-        self.fixedExpensesTitleView.subtitle = "Fixed Expenses go here..."
-        headerView.addSubview(self.fixedExpensesTitleView)
         
-        let margins = headerView.layoutMarginsGuide
-        let distanceBetweenLineItems:CGFloat = 30
-        topNavigationBreadcrumbView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        topNavigationBreadcrumbView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 20).isActive = true
-        topNavigationBreadcrumbView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        topNavigationBreadcrumbView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        fixedExpensesTitleView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        fixedExpensesTitleView.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
-        fixedExpensesTitleView.topAnchor.constraint(equalTo: topNavigationBreadcrumbView.bottomAnchor, constant: distanceBetweenLineItems).isActive = true
-        return headerView
-    }
-    
-    func makeTableViewFooterView() -> UIView {
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
-        bottomNavigationView.translatesAutoresizingMaskIntoConstraints = false
-        bottomNavigationView.backNavigationText = "Income"
-        bottomNavigationView.forwardNavigationText = "Variable Expenses"
-        footerView.addSubview(self.bottomNavigationView)
-        
-        let margins = footerView.layoutMarginsGuide
-        bottomNavigationView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        bottomNavigationView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        bottomNavigationView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 10).isActive = true
-        bottomNavigationView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: 10).isActive = true
-        return footerView
-    }
-    
     func appendValuesToArray(withLabel label:String, amount:Double) {
         fixedExpenseDictionary.append([label:amount])
     }

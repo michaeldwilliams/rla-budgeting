@@ -15,6 +15,10 @@
 		211C6BB41DC80B930060A6F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 211C6BB21DC80B930060A6F6 /* LaunchScreen.storyboard */; };
 		2127BB291DC959C700D4F04D /* IncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127BB281DC959C700D4F04D /* IncomeViewController.swift */; };
 		2127BB2B1DCAAB0800D4F04D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127BB2A1DCAAB0800D4F04D /* Extensions.swift */; };
+		2143C7791DEF7FDA0099DCE9 /* LineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2143C7781DEF7FDA0099DCE9 /* LineItem.swift */; };
+		2143C77C1DFE1B620099DCE9 /* IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2143C77B1DFE1B620099DCE9 /* IncomeView.swift */; };
+		2143C77E1DFF807C0099DCE9 /* GetStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2143C77D1DFF807C0099DCE9 /* GetStartedView.swift */; };
+		2143C7801DFF831D0099DCE9 /* ExpensesHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2143C77F1DFF831D0099DCE9 /* ExpensesHeaderFooterView.swift */; };
 		219019311DE8C49300920138 /* VariableExpensesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219019301DE8C49300920138 /* VariableExpensesTableViewController.swift */; };
 		219019331DEA9E0300920138 /* EditIncomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219019321DEA9E0300920138 /* EditIncomeTableViewController.swift */; };
 		219019351DEAA9EB00920138 /* EditExpensesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219019341DEAA9EB00920138 /* EditExpensesTableViewController.swift */; };
@@ -39,6 +43,10 @@
 		211C6BB51DC80B930060A6F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2127BB281DC959C700D4F04D /* IncomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeViewController.swift; sourceTree = "<group>"; };
 		2127BB2A1DCAAB0800D4F04D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		2143C7781DEF7FDA0099DCE9 /* LineItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineItem.swift; sourceTree = "<group>"; };
+		2143C77B1DFE1B620099DCE9 /* IncomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeView.swift; sourceTree = "<group>"; };
+		2143C77D1DFF807C0099DCE9 /* GetStartedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetStartedView.swift; sourceTree = "<group>"; };
+		2143C77F1DFF831D0099DCE9 /* ExpensesHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpensesHeaderFooterView.swift; sourceTree = "<group>"; };
 		219019301DE8C49300920138 /* VariableExpensesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableExpensesTableViewController.swift; sourceTree = "<group>"; };
 		219019321DEA9E0300920138 /* EditIncomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditIncomeTableViewController.swift; sourceTree = "<group>"; };
 		219019341DEAA9EB00920138 /* EditExpensesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditExpensesTableViewController.swift; sourceTree = "<group>"; };
@@ -82,19 +90,11 @@
 		211C6BA81DC80B930060A6F6 /* budgeting */ = {
 			isa = PBXGroup;
 			children = (
+				2143C7771DEF7F060099DCE9 /* Models */,
 				21A234DF1DE51F0E00B1A177 /* Views */,
-				211C6BA91DC80B930060A6F6 /* AppDelegate.swift */,
-				21A234E21DE7FC8000B1A177 /* LineItemTableViewCell.swift */,
-				219019381DEB9B4D00920138 /* StatementLineItemTableViewCell.swift */,
-				211C6BAB1DC80B930060A6F6 /* GetStartedViewController.swift */,
-				2127BB281DC959C700D4F04D /* IncomeViewController.swift */,
-				219019361DEB985500920138 /* StatementTableViewController.swift */,
-				21DF8CD71DDD1BB700310A9F /* FixedExpensesTableViewController.swift */,
-				219019321DEA9E0300920138 /* EditIncomeTableViewController.swift */,
-				219019341DEAA9EB00920138 /* EditExpensesTableViewController.swift */,
-				219019301DE8C49300920138 /* VariableExpensesTableViewController.swift */,
+				2143C77A1DFE17940099DCE9 /* Controllers */,
 				2127BB2A1DCAAB0800D4F04D /* Extensions.swift */,
-				2113B33A1DDA921B0036735B /* GetStartedPageViewController.swift */,
+				211C6BA91DC80B930060A6F6 /* AppDelegate.swift */,
 				211C6BB01DC80B930060A6F6 /* Assets.xcassets */,
 				211C6BB21DC80B930060A6F6 /* LaunchScreen.storyboard */,
 				211C6BB51DC80B930060A6F6 /* Info.plist */,
@@ -103,13 +103,41 @@
 			path = budgeting;
 			sourceTree = "<group>";
 		};
+		2143C7771DEF7F060099DCE9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2143C7781DEF7FDA0099DCE9 /* LineItem.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		2143C77A1DFE17940099DCE9 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				211C6BAB1DC80B930060A6F6 /* GetStartedViewController.swift */,
+				2113B33A1DDA921B0036735B /* GetStartedPageViewController.swift */,
+				2127BB281DC959C700D4F04D /* IncomeViewController.swift */,
+				21DF8CD71DDD1BB700310A9F /* FixedExpensesTableViewController.swift */,
+				219019321DEA9E0300920138 /* EditIncomeTableViewController.swift */,
+				219019341DEAA9EB00920138 /* EditExpensesTableViewController.swift */,
+				219019301DE8C49300920138 /* VariableExpensesTableViewController.swift */,
+				219019361DEB985500920138 /* StatementTableViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		21A234DF1DE51F0E00B1A177 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2143C77F1DFF831D0099DCE9 /* ExpensesHeaderFooterView.swift */,
+				2143C77D1DFF807C0099DCE9 /* GetStartedView.swift */,
+				2143C77B1DFE1B620099DCE9 /* IncomeView.swift */,
 				21A234E01DE51FC900B1A177 /* BottomNavigationView.swift */,
 				21A234D91DE4F1ED00B1A177 /* TopNavigationBreadcrumbView.swift */,
 				21A234DD1DE5112E00B1A177 /* BudgetLineItemView.swift */,
 				21A234DB1DE50DE200B1A177 /* TitleView.swift */,
+				21A234E21DE7FC8000B1A177 /* LineItemTableViewCell.swift */,
+				219019381DEB9B4D00920138 /* StatementLineItemTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -188,12 +216,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				2127BB291DC959C700D4F04D /* IncomeViewController.swift in Sources */,
+				2143C77C1DFE1B620099DCE9 /* IncomeView.swift in Sources */,
 				2113B33B1DDA921B0036735B /* GetStartedPageViewController.swift in Sources */,
 				219019331DEA9E0300920138 /* EditIncomeTableViewController.swift in Sources */,
 				21A234E31DE7FC8000B1A177 /* LineItemTableViewCell.swift in Sources */,
 				21A234DA1DE4F1ED00B1A177 /* TopNavigationBreadcrumbView.swift in Sources */,
+				2143C77E1DFF807C0099DCE9 /* GetStartedView.swift in Sources */,
 				211C6BAC1DC80B930060A6F6 /* GetStartedViewController.swift in Sources */,
+				2143C7801DFF831D0099DCE9 /* ExpensesHeaderFooterView.swift in Sources */,
 				219019351DEAA9EB00920138 /* EditExpensesTableViewController.swift in Sources */,
+				2143C7791DEF7FDA0099DCE9 /* LineItem.swift in Sources */,
 				21A234DC1DE50DE200B1A177 /* TitleView.swift in Sources */,
 				21A234E11DE51FC900B1A177 /* BottomNavigationView.swift in Sources */,
 				219019371DEB985500920138 /* StatementTableViewController.swift in Sources */,
@@ -332,6 +364,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.realityla.budgeting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -346,6 +379,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.realityla.budgeting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
