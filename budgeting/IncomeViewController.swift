@@ -13,7 +13,7 @@ let backButtonPressedNotificationKey = "Back Button Pressed"
 
 class IncomeViewController: UIViewController, UITextFieldDelegate {
     
-    let incomeView = IncomeView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    let incomeView = IncomeView(frame: CGRect(x: 0, y: 100, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 100.0))
     
     override func viewDidLoad() {
         super.viewDidLoad()

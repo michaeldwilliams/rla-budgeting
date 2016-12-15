@@ -9,34 +9,6 @@
 import Foundation
 import UIKit
 
-extension UIViewController {
-    
-    
-    func makeHeader(withText text: String) -> UILabel {
-        let headerText = UILabel()
-        headerText.text = text
-        headerText.textColor = .black
-        headerText.font = .boldSystemFont(ofSize: 32)
-        headerText.textAlignment = .center
-        headerText.translatesAutoresizingMaskIntoConstraints = false
-        return headerText
-    }
-    
-    func makeSubtitle(withText text:String) -> UILabel {
-        let subtitleText = UILabel()
-        subtitleText.text = text
-        subtitleText.textAlignment = .center
-        subtitleText.textColor = .darkGray
-        subtitleText.font = UIFont.preferredFont(forTextStyle: .body)
-        subtitleText.font = UIFont.systemFont(ofSize: 16)
-        subtitleText.numberOfLines = 2
-        subtitleText.translatesAutoresizingMaskIntoConstraints = false
-        return subtitleText
-    }
-    
-    
-}
-
 extension UIView {
     func makeHeader(withText text: String) -> UILabel {
         let headerText = UILabel()
@@ -66,5 +38,14 @@ extension UIView {
         line.translatesAutoresizingMaskIntoConstraints = false
         line.heightAnchor.constraint(equalToConstant: 1).isActive = true
         return line
+    }
+    
+}
+
+extension UITableViewController {
+    func insetTableViewAndScrollIndicator(tableView:UITableView, top:CGFloat, left:CGFloat, bottom:CGFloat, right:CGFloat) {
+        let inset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
+        tableView.contentInset = inset
+        tableView.scrollIndicatorInsets = inset
     }
 }

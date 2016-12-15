@@ -28,6 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window!.rootViewController = mainViewController
         window!.makeKeyAndVisible()
         
+        application.statusBarStyle = .default
+        
+        let statusBarBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 20))
+        statusBarBackgroundView.backgroundColor = .white
+        window?.addSubview(statusBarBackgroundView)
+        
         
         return true
     }

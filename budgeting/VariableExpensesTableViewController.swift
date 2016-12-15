@@ -13,10 +13,17 @@ class VariableExpensesTableViewController: UITableViewController {
     let expenses:[String:[String]] = ["":["Gasoline","Food and Beverage","Starbucks (Coffee/Tea)", "Clothing","Home Furnishings","Personal Care /Cash","Medical / Dental / Rx", "Education / Self Improvement", "Debt /Installment Payments", "Entertainment","Vacations / Holidays", "Charitable Contributions", "Savings","Other"]]
     var sections = [String]()
     let expenseCell = "Expense Cell"
-    let variableExpenseView = ExpensesHeaderFooterView(frame: UIScreen.main.bounds)
-
+    let titleView = TitleView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120))
+    let bottomNavigationView = BottomNavigationView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        titleView.titleLabel.text = "Variable Expenses"
+        titleView.subtitleLabel.text = "Your variable expenses go here..."
+        bottomNavigationView.backNavigationTextLabel.text = "Income"
+        bottomNavigationView.forwardNavigationTextLabel.text = "Variable Expenses"
         
         tableView.register(LineItemTableViewCell.self, forCellReuseIdentifier: expenseCell)
         
@@ -25,11 +32,12 @@ class VariableExpensesTableViewController: UITableViewController {
         }
         
         
-        self.tableView.tableHeaderView = variableExpenseView.headerView
-        self.tableView.tableFooterView = variableExpenseView.footerView
+        self.tableView.tableHeaderView = titleView
+        self.tableView.tableFooterView = bottomNavigationView
         self.tableView.rowHeight = 50
         tableView.reloadData()
         
+        insetTableViewAndScrollIndicator(tableView: self.tableView, top: 100, left: 0, bottom: 0, right: 0)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

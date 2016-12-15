@@ -10,9 +10,11 @@ import UIKit
 
 class ExpensesHeaderFooterView: UIView {
 
-    var headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 300))
+    var headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120))
     var footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
-    var titleView = TitleView()
+    var titleView = TitleView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120))
+    var bottomNavigationView = BottomNavigationView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
+
 
     
     override init(frame: CGRect) {
@@ -27,40 +29,33 @@ class ExpensesHeaderFooterView: UIView {
     
     
     func setupView() {
-        var bottomNavigationView = BottomNavigationView()
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120))
+        titleView.translatesAutoresizingMaskIntoConstraints = false
+        titleView.title = "Title"
+        titleView.subtitle = "Subtitle"
+        headerView.addSubview(titleView)
         
-        func makeTableViewHeaderView() -> UIView {
-            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 220))
-            titleView.translatesAutoresizingMaskIntoConstraints = false
-            titleView.title = "Fixed Expenses"
-            titleView.subtitle = "Fixed Expenses go here..."
-            headerView.addSubview(titleView)
-            
-            let margins = headerView.layoutMarginsGuide
-            titleView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-            titleView.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
-            titleView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 100).isActive = true
-            return headerView
-        }
+        let headerMargins = headerView.layoutMarginsGuide
+        titleView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        titleView.centerXAnchor.constraint(equalTo: headerMargins.centerXAnchor).isActive = true
+        titleView.topAnchor.constraint(equalTo: headerMargins.topAnchor).isActive = true
         
-        func makeTableViewFooterView() -> UIView {
-            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
-            bottomNavigationView.translatesAutoresizingMaskIntoConstraints = false
-            bottomNavigationView.backNavigationText = "Income"
-            bottomNavigationView.forwardNavigationText = "Variable Expenses"
-            footerView.addSubview(bottomNavigationView)
-            
-            let margins = footerView.layoutMarginsGuide
-            bottomNavigationView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-            bottomNavigationView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-            bottomNavigationView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 10).isActive = true
-            bottomNavigationView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: 10).isActive = true
-            return footerView
-        }
-
-        headerView.addSubview(makeTableViewHeaderView())
-        footerView.addSubview(makeTableViewFooterView())
-
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
+        bottomNavigationView.translatesAutoresizingMaskIntoConstraints = false
+        bottomNavigationView.backNavigationTextLabel.text = "Income"
+        bottomNavigationView.forwardNavigationTextLabel.text = "Variable Expenses"
+        footerView.addSubview(bottomNavigationView)
+        
+        let footerMargins = footerView.layoutMarginsGuide
+        bottomNavigationView.leadingAnchor.constraint(equalTo: footerMargins.leadingAnchor).isActive = true
+        bottomNavigationView.trailingAnchor.constraint(equalTo: footerMargins.trailingAnchor).isActive = true
+        bottomNavigationView.topAnchor.constraint(equalTo: footerMargins.topAnchor, constant: 10).isActive = true
+        bottomNavigationView.bottomAnchor.constraint(equalTo: footerMargins.bottomAnchor, constant: 10).isActive = true
+        
+        
+        headerView.addSubview(titleView)
+        footerView.addSubview(bottomNavigationView)
+        
         
     }
     

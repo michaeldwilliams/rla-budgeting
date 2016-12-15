@@ -15,13 +15,16 @@ class FixedExpensesTableViewController: UITableViewController, UITextFieldDelega
     var sections = [String]()
     var fixedExpenseDictionary:[[String:Double]] = [[:]]
     let expenseCell = "Expense Cell"
-    let fixedExpenseView = ExpensesHeaderFooterView(frame: UIScreen.main.bounds)
-    
-    
+    let titleView = TitleView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120))
+    let bottomNavigationView = BottomNavigationView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        titleView.titleLabel.text = "Fixed Expenses"
+        titleView.subtitleLabel.text = "Your fixed expenses go here..."
+        bottomNavigationView.backNavigationTextLabel.text = "Income"
+        bottomNavigationView.forwardNavigationTextLabel.text = "Variable Expenses"
         
         tableView.register(LineItemTableViewCell.self, forCellReuseIdentifier: expenseCell)
         
@@ -29,12 +32,11 @@ class FixedExpensesTableViewController: UITableViewController, UITextFieldDelega
             self.sections.append(section)
         }
         
-        self.tableView.tableHeaderView = fixedExpenseView.headerView
-        self.tableView.tableFooterView = fixedExpenseView.footerView
+        self.tableView.tableHeaderView = titleView
+        self.tableView.tableFooterView = bottomNavigationView
         self.tableView.rowHeight = 50
-        let inset = UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0)
-        self.tableView.contentInset = inset
-        self.tableView.scrollIndicatorInsets = inset
+        
+        insetTableViewAndScrollIndicator(tableView: self.tableView, top: 100, left: 0, bottom: 0, right: 0)
     }
 
         

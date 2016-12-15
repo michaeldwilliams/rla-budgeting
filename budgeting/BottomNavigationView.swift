@@ -25,8 +25,16 @@ class BottomNavigationView: UIView {
             NSFontAttributeName: UIFont.systemFont(ofSize: 10, weight: UIFontWeightBold),
             NSForegroundColorAttributeName:UIColor.black
         ])
-    var forwardNavigationText = "Next View"
-    var backNavigationText = "Previous View"
+    var forwardNavigationTextLabel:UILabel = {
+       var label = UILabel()
+        label.text = "text"
+        return label
+    }()
+    var backNavigationTextLabel:UILabel = {
+        var label = UILabel()
+        label.text = "text"
+        return label
+    }()
     let bottomNavigationFrame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 50)
 
     
@@ -49,7 +57,7 @@ class BottomNavigationView: UIView {
         nextArrow.translatesAutoresizingMaskIntoConstraints = false
         addSubview(nextArrow)
         
-        nextNavigationAttributedText.append(NSMutableAttributedString(string: "\n\(forwardNavigationText)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18, weight: UIFontWeightMedium), NSForegroundColorAttributeName:UIColor.black]))
+        nextNavigationAttributedText.append(NSMutableAttributedString(string: "\n\(forwardNavigationTextLabel.text!)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18, weight: UIFontWeightMedium), NSForegroundColorAttributeName:UIColor.black]))
         let nextNavigationLabel = UILabel()
         nextNavigationLabel.textAlignment = .right
         nextNavigationLabel.numberOfLines = 0
@@ -57,7 +65,7 @@ class BottomNavigationView: UIView {
         nextNavigationLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(nextNavigationLabel)
         
-        backNavigationAttributedText.append(NSMutableAttributedString(string: "\n\(backNavigationText)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18, weight: UIFontWeightMedium), NSForegroundColorAttributeName:UIColor.black]))
+        backNavigationAttributedText.append(NSMutableAttributedString(string: "\n\(backNavigationTextLabel.text!)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18, weight: UIFontWeightMedium), NSForegroundColorAttributeName:UIColor.black]))
         let backNavigationLabel = UILabel()
         backNavigationLabel.numberOfLines = 0
         backNavigationLabel.attributedText = backNavigationAttributedText

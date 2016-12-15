@@ -19,9 +19,9 @@ class TitleView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        titleLabel = makeHeader(withText: title)
+        titleLabel = makeHeader(withText: self.title)
         self.addSubview(titleLabel)
-        subtitleLabel = makeSubtitle(withText: subtitle)
+        subtitleLabel = makeSubtitle(withText: self.subtitle)
         self.addSubview(subtitleLabel)
         
         let margins = self.layoutMarginsGuide
@@ -37,28 +37,6 @@ class TitleView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-//    func makeHeader(withText text: String) -> UILabel {
-//        let headerText = UILabel()
-//        headerText.text = text
-//        headerText.textColor = .black
-//        headerText.font = .boldSystemFont(ofSize: 32)
-//        headerText.textAlignment = .center
-//        headerText.translatesAutoresizingMaskIntoConstraints = false
-//        return headerText
-//    }
-//    
-//    func makeSubtitle(withText text:String) -> UILabel {
-//        let subtitleText = UILabel()
-//        subtitleText.text = text
-//        subtitleText.textAlignment = .center
-//        subtitleText.textColor = .darkGray
-//        subtitleText.font = UIFont.preferredFont(forTextStyle: .body)
-//        subtitleText.font = UIFont.systemFont(ofSize: 16)
-//        subtitleText.numberOfLines = 2
-//        subtitleText.translatesAutoresizingMaskIntoConstraints = false
-//        return subtitleText
-//    }
 
     
 
