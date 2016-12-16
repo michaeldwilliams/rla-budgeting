@@ -10,10 +10,9 @@ import UIKit
 
 class FixedExpensesTableViewController: UITableViewController, UITextFieldDelegate {
 
-    let expenses:[String:[String]] = ["Housing":["Rent/Mortgage","Gas","Water/Power","Cable/Internet","Garbage","Property Tax","Homeowners/Renters Insurance"],"Transportation":["Car Payment","Car Insurance","Roadside Insurance"],"Other Expenses":["Health Insurance","Life Insurance","Disability Insurance","Student Loans","Cell Phone","Other"]]
+    var expenses:[String:[[String:Double]]] = ["Housing":[["Rent/Mortgage":0.0],["Gas":0.0],["Water/Power":0.0],["Cable/Internet":0.0],["Garbage":0.0],["Property Tax":0.0],["Homeowners/Renters Insurance":0.0]],"Transportation":[["Car Payment":0.0],["Car Insurance":0.0],["Roadside Insurance":0.0]],"Other Expenses":[["Health Insurance":0.0],["Life Insurance":0.0],["Disability Insurance":0.0],["Student Loans":0.0],["Cell Phone":0.0],["Other":0.0]]]
     var fixedExpenseDollarAmounts = [String]()
     var sections = [String]()
-    var fixedExpenseDictionary:[[String:Double]] = [[:]]
     let expenseCell = "Expense Cell"
     let titleView = TitleView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120))
     let bottomNavigationView = BottomNavigationView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
@@ -40,9 +39,7 @@ class FixedExpensesTableViewController: UITableViewController, UITextFieldDelega
     }
 
         
-    func appendValuesToArray(withLabel label:String, amount:Double) {
-        fixedExpenseDictionary.append([label:amount])
-    }
+
     
 
     // MARK: - Table view data source
@@ -62,18 +59,23 @@ class FixedExpensesTableViewController: UITableViewController, UITextFieldDelega
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: expenseCell, for: indexPath) as! LineItemTableViewCell
         let sectionsArray = expenses[sections[indexPath.section]]
-        let expenseItem = sectionsArray?[indexPath.row]
-        cell.budgetLineItemView.label.text = expenseItem!
+        let expenseDictionary = sectionsArray?[indexPath.row]
+        var expenseItem = String()
+        for key in (expenseDictionary?.keys)! {
+            expenseItem = key
+        }
+        var expenseValue = Double()
+        for value in (expenseDictionary?.values)! {
+            expenseValue = value
+        }
+        cell.budgetLineItemView.label.text = expenseItem
+        if expenseValue == 0.0 {
+            cell.budgetLineItemView.lineItemTextField.text = ""
+        } else {
+            cell.budgetLineItemView.lineItemTextField.text = "\(expenseValue)"
+        }
         cell.budgetLineItemView.lineItemTextField.delegate = self
-//        cell.budgetLineItemView.lineItemTextField.text = ""
-//        if (cell.budgetLineItemView.lineItemTextField.text?.isEmpty)! {
-//            fixedExpenseDollarAmounts.append("")
-//        } else {
-//            fixedExpenseDollarAmounts.append(cell.budgetLineItemView.lineItemTextField.text!)
-//        }
-//        for x in fixedExpenseDollarAmounts {
-//            print(x)
-//        }
+
         return cell
     }
     
@@ -95,11 +97,19 @@ class FixedExpensesTableViewController: UITableViewController, UITextFieldDelega
             let cell = visibleCells[index]
             let indexPath = indexPathForVisibleRows[index]
             let sectionsArray = expenses[sections[indexPath.section]]
-            let expenseItem = sectionsArray?[indexPath.row]
+            var expenseDictionary = sectionsArray?[indexPath.row]
+            var expenseItem = String()
+            for key in (expenseDictionary?.keys)! {
+                expenseItem = key
+            }
             let label = cell.budgetLineItemView.label.text
-            if label == expenseItem! {
-                appendValuesToArray(withLabel: label!, amount: Double(textField.text!)!)
+            if label == expenseItem {
                 print("\(label!)"+":"+"\(textField.text!)")
+                if textField.text != "" {
+                    expenseDictionary?.updateValue(Double(textField.text!)!, forKey: expenseItem)
+                } else {
+                    return
+                }
             }
         }
     }

@@ -19,10 +19,16 @@ class IncomeViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         view.addSubview(incomeView)
         
+        
     }
 
 
-    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.becomeFirstResponder()
+        textField.keyboardType = .decimalPad
+        
+        
+    }
         
 }
 

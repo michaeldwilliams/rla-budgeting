@@ -10,7 +10,7 @@ import UIKit
 
 class GetStartedPageViewController: UIPageViewController, UIPageViewControllerDataSource {
     
-    let incomeViewController = IncomeViewController()
+    let incomeTableViewController = IncomeTableViewController()
     let fixedExpensesTableViewController = FixedExpensesTableViewController()
     let variableExpensesTableViewController = VariableExpensesTableViewController()
     let statementTableViewController = StatementTableViewController()
@@ -22,7 +22,7 @@ class GetStartedPageViewController: UIPageViewController, UIPageViewControllerDa
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(breadcrumbViewNav)
-        self.pageViewControllersArray.append(incomeViewController)
+        self.pageViewControllersArray.append(incomeTableViewController)
         self.pageViewControllersArray.append(fixedExpensesTableViewController)
         self.pageViewControllersArray.append(variableExpensesTableViewController)
         self.pageViewControllersArray.append(statementTableViewController)

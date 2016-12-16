@@ -30,6 +30,7 @@
 		21A234E11DE51FC900B1A177 /* BottomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A234E01DE51FC900B1A177 /* BottomNavigationView.swift */; };
 		21A234E31DE7FC8000B1A177 /* LineItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A234E21DE7FC8000B1A177 /* LineItemTableViewCell.swift */; };
 		21DF8CD81DDD1BB700310A9F /* FixedExpensesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF8CD71DDD1BB700310A9F /* FixedExpensesTableViewController.swift */; };
+		21E003AA1E0357720040B43B /* IncomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E003A91E0357720040B43B /* IncomeTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		21A234E01DE51FC900B1A177 /* BottomNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomNavigationView.swift; sourceTree = "<group>"; };
 		21A234E21DE7FC8000B1A177 /* LineItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineItemTableViewCell.swift; sourceTree = "<group>"; };
 		21DF8CD71DDD1BB700310A9F /* FixedExpensesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedExpensesTableViewController.swift; sourceTree = "<group>"; };
+		21E003A91E0357720040B43B /* IncomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				211C6BAB1DC80B930060A6F6 /* GetStartedViewController.swift */,
 				2113B33A1DDA921B0036735B /* GetStartedPageViewController.swift */,
 				2127BB281DC959C700D4F04D /* IncomeViewController.swift */,
+				21E003A91E0357720040B43B /* IncomeTableViewController.swift */,
 				21DF8CD71DDD1BB700310A9F /* FixedExpensesTableViewController.swift */,
 				219019321DEA9E0300920138 /* EditIncomeTableViewController.swift */,
 				219019341DEAA9EB00920138 /* EditExpensesTableViewController.swift */,
@@ -224,6 +227,7 @@
 				2143C77E1DFF807C0099DCE9 /* GetStartedView.swift in Sources */,
 				211C6BAC1DC80B930060A6F6 /* GetStartedViewController.swift in Sources */,
 				2143C7801DFF831D0099DCE9 /* ExpensesHeaderFooterView.swift in Sources */,
+				21E003AA1E0357720040B43B /* IncomeTableViewController.swift in Sources */,
 				219019351DEAA9EB00920138 /* EditExpensesTableViewController.swift in Sources */,
 				2143C7791DEF7FDA0099DCE9 /* LineItem.swift in Sources */,
 				21A234DC1DE50DE200B1A177 /* TitleView.swift in Sources */,
