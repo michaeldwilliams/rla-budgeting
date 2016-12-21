@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BudgetLineItemView: UIView {
+class BudgetLineItemView: UIView, UITextFieldDelegate {
     
     var label = UILabel()
     var lineItemTextField = UITextField()
@@ -31,7 +31,7 @@ class BudgetLineItemView: UIView {
         label.centerYAnchor.constraint(equalTo: margins.centerYAnchor).isActive = true
         lineItemTextField.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         lineItemTextField.centerYAnchor.constraint(equalTo: label.centerYAnchor).isActive = true
-        
+        lineItemTextField.delegate = self
         
     }
     
@@ -67,6 +67,13 @@ class BudgetLineItemView: UIView {
         return textfield
     }
 
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("TextFieldDidBeginEditing")
+        textField.becomeFirstResponder()
+        textField.keyboardType = .decimalPad
+        
+        
+    }
     
 
     /*

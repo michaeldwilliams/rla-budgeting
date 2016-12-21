@@ -11,7 +11,7 @@ import UIKit
 let nextButtonPressedNotificationKey = "Next Button Pressed"
 let backButtonPressedNotificationKey = "Back Button Pressed"
 
-class IncomeViewController: UIViewController, UITextFieldDelegate {
+class IncomeViewController: UIViewController {
     
     let incomeView = IncomeView(frame: CGRect(x: 0, y: 100, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 100.0))
     
@@ -23,13 +23,6 @@ class IncomeViewController: UIViewController, UITextFieldDelegate {
     }
 
 
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.becomeFirstResponder()
-        textField.keyboardType = .decimalPad
-        
-        
-    }
-        
 }
 
 

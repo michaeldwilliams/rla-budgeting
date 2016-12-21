@@ -10,24 +10,20 @@ import UIKit
 
 class IncomeTableViewController: UITableViewController, UITextFieldDelegate {
 
-    var categories = ["Wages/Salaries","Freelance/1099","Other Income"]
+    var categories = [["Wages/Salaries":0.00],["Freelance/1099":0.00],["Other Income":0.00]]
     var incomeCell = "Income Cell"
     let titleView = TitleView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120))
-    let bottomNavigationView = BottomNavigationView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.register(LineItemTableViewCell.self, forCellReuseIdentifier: incomeCell)
         self.tableView.tableHeaderView = titleView
-        self.tableView.tableFooterView = bottomNavigationView
         self.tableView.rowHeight = 50
         self.tableView.isScrollEnabled = false
-        view.addSubview(bottomNavigationView)
         insetTableViewAndScrollIndicator(tableView: self.tableView, top: 100, left: 0, bottom: 0, right: 0)
         
-        let margins = view.layoutMarginsGuide
-        bottomNavigationView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+       
         
         
         // Uncomment the following line to preserve selection between presentations
@@ -35,7 +31,16 @@ class IncomeTableViewController: UITableViewController, UITextFieldDelegate {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(dismissKeyboard), name: NSNotification.Name(rawValue: dismissKeyboardKey), object: nil)
     }
+    
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+        
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -51,11 +56,83 @@ class IncomeTableViewController: UITableViewController, UITextFieldDelegate {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: incomeCell, for: indexPath) as! LineItemTableViewCell
-        cell.budgetLineItemView.label.text = categories[indexPath.row]
+        let itemArray = categories[indexPath.row]
+        var incomeItem = String()
+        for key in itemArray.keys {
+            incomeItem = key
+        }
+        var incomeValue = Double()
+        for value in itemArray.values {
+            incomeValue = value
+        }
+        cell.budgetLineItemView.label.text = incomeItem
+        
+        if incomeValue == 0.00 {
+            cell.budgetLineItemView.lineItemTextField.text = ""
+        } else {
+            cell.budgetLineItemView.lineItemTextField.text = String(format: "%.2f", incomeValue)
+        }
+        
         cell.budgetLineItemView.lineItemTextField.delegate = self
         
 
         return cell
+    }
+    
+    func updateDictionaryValue(atIndexPath indexPath:IndexPath) {
+        let visibleCells = tableView.visibleCells as! [LineItemTableViewCell]
+        var incomeItem = String()
+        var incomeDictionary = [String:Double]()
+        var label = String()
+        var amount : String?
+        
+        incomeDictionary = categories[indexPath.row]
+        
+        for key in incomeDictionary.keys {
+            for cell in visibleCells {
+                label = cell.budgetLineItemView.label.text!
+                amount = cell.budgetLineItemView.lineItemTextField.text
+                if label == key {
+                    incomeItem = key
+                    break
+                } else {
+                    continue
+                }
+            }
+        }
+        
+        if (amount?.isEmpty)! {
+            return
+        } else {
+            if incomeItem == label {
+                incomeDictionary.updateValue(Double(amount!)!, forKey: label)
+                categories[indexPath.row] = incomeDictionary
+                for (key, value) in incomeDictionary {
+                    print("\(key)"+":"+"\(value)")
+                }
+                return
+            } else {
+                return
+            }
+        }
+    }
+
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = UIColor.blue.cgColor
+        textField.keyboardType = .decimalPad
+        textField.spellCheckingType = .no
+        textField.becomeFirstResponder()
+        if textField.inputAccessoryView == nil {
+            textField.inputAccessoryView = KeyboardAccessoryView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 40))
+        }
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let pointInTable = textField.convert(textField.bounds.origin, to: self.tableView)
+        let textFieldIndexPath = self.tableView.indexPathForRow(at: pointInTable)
+        updateDictionaryValue(atIndexPath: textFieldIndexPath!)
+        self.tableView.reloadData()
     }
 
 

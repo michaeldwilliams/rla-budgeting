@@ -60,11 +60,11 @@ class IncomeView: UIView {
         addSubview(otherIncomeLineItemView)
         
         
-        bottomNavigationView.backNavigationTextLabel.text = "Get Started"
-        bottomNavigationView.forwardNavigationTextLabel.text = "Fixed Expenses"
-        bottomNavigationView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(bottomNavigationView)
-        
+//        bottomNavigationView.backNavigationTextLabel.text = "Get Started"
+//        bottomNavigationView.forwardNavigationTextLabel.text = "Fixed Expenses"
+//        bottomNavigationView.translatesAutoresizingMaskIntoConstraints = false
+//        addSubview(bottomNavigationView)
+//        
         
         
         // MARK: - AutoLayout
@@ -91,10 +91,10 @@ class IncomeView: UIView {
         otherIncomeLineItemView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         otherIncomeLineItemView.topAnchor.constraint(equalTo: lineSeperatorBottom.bottomAnchor, constant: distanceBetweenLineItems).isActive = true
         otherIncomeLineItemView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        bottomNavigationView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        bottomNavigationView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        bottomNavigationView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -5).isActive = true
-        bottomNavigationView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//        bottomNavigationView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+//        bottomNavigationView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+//        bottomNavigationView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -5).isActive = true
+//        bottomNavigationView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
     }
 

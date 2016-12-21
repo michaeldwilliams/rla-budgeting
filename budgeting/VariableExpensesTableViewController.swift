@@ -8,9 +8,9 @@
 
 import UIKit
 
-class VariableExpensesTableViewController: UITableViewController {
+class VariableExpensesTableViewController: UITableViewController, UITextFieldDelegate {
 
-    let expenses:[String:[String]] = ["":["Gasoline","Food and Beverage","Starbucks (Coffee/Tea)", "Clothing","Home Furnishings","Personal Care /Cash","Medical / Dental / Rx", "Education / Self Improvement", "Debt /Installment Payments", "Entertainment","Vacations / Holidays", "Charitable Contributions", "Savings","Other"]]
+    var expenses:[String:[[String:Double]]] = ["":[["Gasoline":0.00],["Food and Beverage":0.00],["Starbucks (Coffee/Tea)":0.00], ["Clothing":0.00],["Home Furnishings":0.00],["Personal Care /Cash":0.00],["Medical / Dental / Rx":0.00], ["Education / Self Improvement":0.00], ["Debt /Installment Payments":0.00], ["Entertainment":0.00],["Vacations / Holidays":0.00], ["Charitable Contributions":0.00], ["Savings":0.00],["Other":0.00]]]
     var sections = [String]()
     let expenseCell = "Expense Cell"
     let titleView = TitleView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120))
@@ -44,10 +44,17 @@ class VariableExpensesTableViewController: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    
+    
+        NotificationCenter.default.addObserver(self, selector: #selector(dismissKeyboard), name: NSNotification.Name(rawValue: dismissKeyboardKey), object: nil)
     }
     
     
-    
+    func dismissKeyboard() {
+        view.endEditing(true)
+        
+    }
+
     
     
     // MARK: - Table view data source
@@ -67,46 +74,88 @@ class VariableExpensesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: expenseCell, for: indexPath) as! LineItemTableViewCell
         let sectionsArray = expenses[sections[indexPath.section]]
-        let expenseItem = sectionsArray?[indexPath.row]
-        cell.budgetLineItemView.label.text = expenseItem!
+        let expenseDictionary = sectionsArray?[indexPath.row]
+        var expenseItem = String()
+        for key in (expenseDictionary?.keys)! {
+            expenseItem = key
+        }
+        var expenseValue = Double()
+        for value in (expenseDictionary?.values)! {
+            expenseValue = value
+        }
+        cell.budgetLineItemView.label.text = expenseItem
+        if expenseValue == 0.0 {
+            cell.budgetLineItemView.lineItemTextField.text = ""
+        } else {
+            cell.budgetLineItemView.lineItemTextField.text = String(format: "%.2f", expenseValue)
+        }
+        cell.budgetLineItemView.lineItemTextField.delegate = self
         
         return cell
     }
+
+    
+    func updateDictionaryValue(atIndexPath indexPath:IndexPath) {
+        let visibleCells = tableView.visibleCells as! [LineItemTableViewCell]
+        var expenseItem = String()
+        var expenseDictionary = [String:Double]()
+        var label = String()
+        var amount : String?
+        
+        var sectionsArray = expenses[sections[indexPath.section]]
+        expenseDictionary = (sectionsArray?[indexPath.row])!
+        
+        for key in expenseDictionary.keys {
+            for cell in visibleCells {
+                label = cell.budgetLineItemView.label.text!
+                amount = cell.budgetLineItemView.lineItemTextField.text
+                if label == key {
+                    expenseItem = key
+                    break
+                } else {
+                    continue
+                }
+            }
+        }
+        
+        if (amount?.isEmpty)! {
+            return
+        } else {
+            if expenseItem == label {
+                expenseDictionary.updateValue(Double(amount!)!, forKey: label)
+                sectionsArray?[indexPath.row] = expenseDictionary
+                expenses.updateValue(sectionsArray!, forKey: sections[indexPath.section])
+                for (key, value) in expenseDictionary {
+                    print("\(key)"+":"+"\(value)")
+                }
+                return
+            } else {
+                return
+            }
+        }
+    }
     
     
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
+    //MARK: UITextField Delegate
     
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = UIColor.blue.cgColor
+        textField.keyboardType = .decimalPad
+        textField.spellCheckingType = .no
+        textField.becomeFirstResponder()
+        if textField.inputAccessoryView == nil {
+            textField.inputAccessoryView = KeyboardAccessoryView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 40))
+        }
+    }
     
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
     
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let pointInTable = textField.convert(textField.bounds.origin, to: self.tableView)
+        let textFieldIndexPath = self.tableView.indexPathForRow(at: pointInTable)
+        updateDictionaryValue(atIndexPath: textFieldIndexPath!)
+        self.tableView.reloadData()
+    }
+
+
 
 }

@@ -15,15 +15,15 @@ class FixedExpensesTableViewController: UITableViewController, UITextFieldDelega
     var sections = [String]()
     let expenseCell = "Expense Cell"
     let titleView = TitleView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120))
-    let bottomNavigationView = BottomNavigationView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
+//    let bottomNavigationView = BottomNavigationView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65))
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         titleView.titleLabel.text = "Fixed Expenses"
         titleView.subtitleLabel.text = "Your fixed expenses go here..."
-        bottomNavigationView.backNavigationTextLabel.text = "Income"
-        bottomNavigationView.forwardNavigationTextLabel.text = "Variable Expenses"
+//        bottomNavigationView.backNavigationTextLabel.text = "Income"
+//        bottomNavigationView.forwardNavigationTextLabel.text = "Variable Expenses"
         
         tableView.register(LineItemTableViewCell.self, forCellReuseIdentifier: expenseCell)
         
@@ -32,14 +32,19 @@ class FixedExpensesTableViewController: UITableViewController, UITextFieldDelega
         }
         
         self.tableView.tableHeaderView = titleView
-        self.tableView.tableFooterView = bottomNavigationView
+//        self.tableView.tableFooterView = bottomNavigationView
         self.tableView.rowHeight = 50
         
-        insetTableViewAndScrollIndicator(tableView: self.tableView, top: 100, left: 0, bottom: 0, right: 0)
+        insetTableViewAndScrollIndicator(tableView: self.tableView, top: 100, left: 0, bottom: 45, right: 0)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(dismissKeyboard), name: NSNotification.Name(rawValue: dismissKeyboardKey), object: nil)
     }
 
         
-
+    func dismissKeyboard() {
+        view.endEditing(true)
+        
+    }
     
 
     // MARK: - Table view data source
@@ -72,12 +77,53 @@ class FixedExpensesTableViewController: UITableViewController, UITextFieldDelega
         if expenseValue == 0.0 {
             cell.budgetLineItemView.lineItemTextField.text = ""
         } else {
-            cell.budgetLineItemView.lineItemTextField.text = "\(expenseValue)"
+            cell.budgetLineItemView.lineItemTextField.text = String(format: "%.2f", expenseValue)
         }
         cell.budgetLineItemView.lineItemTextField.delegate = self
 
         return cell
     }
+    
+    func updateDictionaryValue(atIndexPath indexPath:IndexPath) {
+        let visibleCells = tableView.visibleCells as! [LineItemTableViewCell]
+        var expenseItem = String()
+        var expenseDictionary = [String:Double]()
+        var label = String()
+        var amount : String?
+        
+        var sectionsArray = expenses[sections[indexPath.section]]
+        expenseDictionary = (sectionsArray?[indexPath.row])!
+        
+        for key in expenseDictionary.keys {
+            for cell in visibleCells {
+                label = cell.budgetLineItemView.label.text!
+                amount = cell.budgetLineItemView.lineItemTextField.text
+                if label == key {
+                    expenseItem = key
+                    break
+                } else {
+                    continue
+                }
+            }
+        }
+        
+        if (amount?.isEmpty)! {
+            return
+        } else {
+            if expenseItem == label {
+                expenseDictionary.updateValue(Double(amount!)!, forKey: label)
+                sectionsArray?[indexPath.row] = expenseDictionary
+                expenses.updateValue(sectionsArray!, forKey: sections[indexPath.section])
+                for (key, value) in expenseDictionary {
+                    print("\(key)"+":"+"\(value)")
+                }
+                return
+            } else {
+                return
+            }
+        }
+    }
+    
     
     //MARK: UITextField Delegate
     
@@ -86,32 +132,17 @@ class FixedExpensesTableViewController: UITableViewController, UITextFieldDelega
         textField.keyboardType = .decimalPad
         textField.spellCheckingType = .no
         textField.becomeFirstResponder()
+        if textField.inputAccessoryView == nil {
+            textField.inputAccessoryView = KeyboardAccessoryView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 40))
+        }
     }
     
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        let visibleCells = tableView.visibleCells as! [LineItemTableViewCell]
-        guard let indexPathForVisibleRows = tableView.indexPathsForVisibleRows else {return}
-        
-        for index in 0..<visibleCells.count {
-            let cell = visibleCells[index]
-            let indexPath = indexPathForVisibleRows[index]
-            let sectionsArray = expenses[sections[indexPath.section]]
-            var expenseDictionary = sectionsArray?[indexPath.row]
-            var expenseItem = String()
-            for key in (expenseDictionary?.keys)! {
-                expenseItem = key
-            }
-            let label = cell.budgetLineItemView.label.text
-            if label == expenseItem {
-                print("\(label!)"+":"+"\(textField.text!)")
-                if textField.text != "" {
-                    expenseDictionary?.updateValue(Double(textField.text!)!, forKey: expenseItem)
-                } else {
-                    return
-                }
-            }
-        }
+        let pointInTable = textField.convert(textField.bounds.origin, to: self.tableView)
+        let textFieldIndexPath = self.tableView.indexPathForRow(at: pointInTable)
+        updateDictionaryValue(atIndexPath: textFieldIndexPath!)
+        self.tableView.reloadData()
     }
 
 }
